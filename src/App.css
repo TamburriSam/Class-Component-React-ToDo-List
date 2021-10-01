@@ -1,0 +1,14 @@
+#list {
+  width: 100vw;
+  text-align: center;
+  border: 2px solid black;
+  list-style: none;
+  padding: 10px;
+}
+
+#container1 {
+  border: 1px solid black;
+  width: 100vw;
+  text-align: center;
+  padding: 10px;
+}
