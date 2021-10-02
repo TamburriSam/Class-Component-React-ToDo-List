@@ -1,7 +1,10 @@
 import React, { Component } from "react";
-import List from "./List";
+import Lists from "./Lists";
 import uniqid from "uniqid";
-import Card from "@mui/material/Card";
+import Input from "@mui/material/Input";
+import Button from "@mui/material/Button";
+import "../App.css";
+import FactCheckIcon from "@mui/icons-material/FactCheck";
 
 class MyComponent extends Component {
   constructor(props) {
@@ -30,8 +33,6 @@ class MyComponent extends Component {
       return item.id !== task;
     });
     this.setState({ tasks: todos });
-
-    console.log(todos);
   };
 
   onHandleChange = (e) => {
@@ -56,14 +57,12 @@ class MyComponent extends Component {
         isEditing: false,
       },
     });
-
-    console.log(this.state.tasks);
+    document.getElementById("sub").value = "";
   };
 
   editTask = (task) => {
     let updatedTodos = this.state.tasks.map((todo) => {
       if (todo.id === task.id) {
-        console.log("ok");
         todo.isEditing = !todo.isEditing;
       }
       return todo;
@@ -83,8 +82,6 @@ class MyComponent extends Component {
         isEditing: this.state.task.isEditing,
       },
     });
-
-    console.log(this.state.task);
   };
 
   submitNewTask = (e, task) => {
@@ -98,25 +95,49 @@ class MyComponent extends Component {
       }
       return todo;
     });
-
+    document.getElementById("sub").value = "";
     this.setState({ tasks: updatedTodos });
   };
 
-  submitSubNewTask = () => {};
+  componentDidMount() {
+    fetch("https://api.coinbase.com/v2/currencies")
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }
 
   render() {
-    const { title, subtitle } = this.props;
+    const { subtitle } = this.props;
 
     return (
-      <div>
-        <h2>{subtitle}</h2>
-        <p>{this.state.count}</p>
+      <div
+        style={{
+          width: "30vw",
+          margin: "auto",
+          marginTop: "60px",
+          padding: "60px",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
+          backgroundColor: "white",
+          height: "60vh",
+          borderRadius: "10px",
+          transition: "all 0.3s cubic-bezier(.25,.8,.25,1)",
+        }}
+      >
+        <h1>
+          {" "}
+          <FactCheckIcon></FactCheckIcon> {subtitle}
+        </h1>
         <br></br>
         <div id='container1'>
-          <input onChange={this.onHandleChange}></input>
-          <button onClick={this.onSubmit}>Submit Item</button>
+          <Input
+            id='sub'
+            onChange={this.onHandleChange}
+            placeholder='Submit Task'
+          ></Input>
+          <Button variant='outlined' onClick={this.onSubmit}>
+            Submit Item
+          </Button>
         </div>
-        <List
+        <Lists
           deleteTask={this.deleteTask}
           tasks={this.state.tasks}
           editTask={this.editTask}

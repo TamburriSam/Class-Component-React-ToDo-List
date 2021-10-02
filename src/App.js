@@ -2,13 +2,13 @@
 
 import React, { Component } from "react";
 import MyComponent from "./components/MyComponent";
-
+import FactCheckIcon from "@mui/icons-material/FactCheck";
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      title: "To Do List",
+      title: "{ todo }",
     };
 
     this.onClickBtn = this.onClickBtn.bind(this);
@@ -20,7 +20,13 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{ border: "2px solid black" }}>
+      <div
+        style={{
+          background:
+            "linear-gradient(69deg, hsla(10, 82%, 65%, 1) 0%, hsla(290, 79%, 13%, 1) 100%)",
+          height: "100vh",
+        }}
+      >
         <br></br>
         <MyComponent
           title='React'
